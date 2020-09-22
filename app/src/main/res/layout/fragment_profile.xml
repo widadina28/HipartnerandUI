@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+                <androidx.drawerlayout.widget.DrawerLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/drawerlayout"
+                    android:background="@drawable/back3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:context="com.ros.belajarbaseactivity.bottomnav.ProfileFragment"
+                            android:orientation="vertical">
+                                <androidx.appcompat.widget.Toolbar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="?attr/actionBarSize"
+                                    android:id="@+id/toolbarnew"
+                                    android:theme="@style/AppTheme.AppBarOverlay"
+                                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                                    app:title="PROFILE"
+                                    android:background="@color/maincolor"
+                                    android:elevation="4dp"/>
+                            <Button
+                                android:id="@+id/btngithub"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GITHUB"
+                                android:drawableLeft="@drawable/ic_github"
+                                android:backgroundTint="@color/maincolor"
+                                android:background="@drawable/new_button"
+                                android:padding="5dp"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:paddingLeft="10dp"
+                                app:civ_border_color="@color/maincolor"
+                                app:civ_border_overlay="true"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/imgprofile"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="sans-serif-black"
+                                android:text="Rosyida Widadina Ulya S.Stat"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Universitas Airlangga"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="sans-serif-black"
+                                android:layout_marginTop="10dp"/>
+                                <FrameLayout
+                                    android:id="@+id/fragmentcontainernew"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+
+
+                        </LinearLayout>
+
+                        <com.google.android.material.navigation.NavigationView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/nav_view"
+                            android:layout_gravity="end"
+                            app:menu="@menu/menu_drawer">
+                        </com.google.android.material.navigation.NavigationView>
+                </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".form"
+        android:background="@drawable/back2">
+
+        <ImageView
+            android:id="@+id/iv_form"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/logonew"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.061"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="FORM"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_form"
+            android:textSize="30dp"/>
+
+        <EditText
+            android:id="@+id/et_nameform"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="NAME"
+            android:textSize="15dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
+            android:inputType="text"
+            android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_profile"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_dob"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="DATE OF BIRTH"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_date_range_24"
+            android:paddingVertical="5dp"
+            android:inputType="datetime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_nameform"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_id"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="IDENTITY NUMBER"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_card_membership_24"
+            android:inputType="number"
+            android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_dob"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_gpa"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="GPA"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_menu_book_24"
+            android:inputType="numberDecimal"
+            android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_id"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_ed"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="EDUCATIONAL BACKGROUND"
+            android:textSize="15dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_school_24"
+            android:paddingVertical="5dp"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_gpa"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_achivement"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="ACHIVEMENT"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_emoji_events_24"
+            android:inputType="text"
+            android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_ed"
+            android:layout_marginRight="70dp"/>
+
+        <EditText
+            android:id="@+id/et_exp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="EXPERIENCE"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_baseline_accessibility_new_24"
+            android:inputType="text"
+            android:paddingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_achivement"
+            android:layout_marginRight="70dp"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_exp"
+            android:backgroundTint="#82B56F"
+            android:text="SUBMIT"
+            android:background="@drawable/new_button"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FF4E4848"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="60dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
