@@ -1,60 +1,75 @@
 package com.ros.belajarbaseactivity.engineer
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.ros.belajarbaseactivity.API.ApiClient
+import com.ros.belajarbaseactivity.API.AuthApiService
+import com.ros.belajarbaseactivity.Hire.HireActivity
 import com.ros.belajarbaseactivity.R
+import com.ros.belajarbaseactivity.databinding.FragmentDetailEngineerBinding
+import com.ros.belajarbaseactivity.sharedpref.Constant
+import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_engineer.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailEngineerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailEngineerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentDetailEngineerBinding
+    private lateinit var sharedpref: sharedprefutil
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_engineer, container, false)
+        sharedpref = sharedprefutil(requireContext())
+        binding = FragmentDetailEngineerBinding.inflate(inflater)
+        callApi()
+
+        binding.btnHire.setOnClickListener {
+            val intent = Intent(requireActivity(), HireActivity::class.java)
+            startActivity(intent)
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailEngineerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailEngineerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun callApi (){
+        val idEngineer = sharedpref.getString(Constant.PREF_ID_ENGINEER)
+        val service = ApiClient.getApiClient(requireContext())?.create(AuthApiService::class.java)
+
+        service?.getEngineerByID(idEngineer)?.enqueue(object : retrofit2.Callback<EngineerResponseID>{
+            override fun onFailure(call: Call<EngineerResponseID>, t: Throwable) {
+                Log.e("DetailEngineerFragment", t.message ?: "error")
             }
-    }
+
+            override fun onResponse(
+                call: Call<EngineerResponseID>,
+                response: Response<EngineerResponseID>
+            ) {
+                Log.d("Detail Engineer", "${response.body()}")
+                Log.d("id_Detail", "$idEngineer")
+                binding.tvNameEngineer.text = response.body()?.data?.nameEngineer
+                binding.tvDescdetail.text = response.body()?.data?.descriptionEngineer
+                binding.tvJobdetail.text = response.body()?.data?.nameFreelance
+                binding.tvLocdetail.text = response.body()?.data?.nameLoc
+                binding.tvRate.text = response.body()?.data?.rate
+                binding.tvSkill.text = response.body()?.data?.nameSkill
+                binding.tvStatusdetail.text = response.body()?.data?.status
+                Picasso.get().load("http://3.80.45.131:8080/uploads/" + response.body()?.data?.image).placeholder(R.drawable.ic_baseline_person_24).into(binding.imgengineer)
+            }
+
+        })
+}
 }

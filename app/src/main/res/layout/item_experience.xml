@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:cardCornerRadius="10dp"
+       android:layout_margin="15dp"
+       android:backgroundTint="@color/ic_launcher_background">
+       <LinearLayout
+           xmlns:android="http://schemas.android.com/apk/res/android"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:layout_gravity="center">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Name Company"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/maincolor"
+               android:drawableStart="@drawable/ic_company"/>
+           <TextView
+               android:id="@+id/name_company_experience"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Name Company"
+               android:textColor="@color/maincolor"
+               android:layout_marginLeft="10dp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Position"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/maincolor"
+               android:drawableStart="@drawable/ic_employee"/>
+           <TextView
+               android:id="@+id/position_experience"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Position"
+               android:textColor="@color/maincolor"
+               android:layout_marginLeft="10dp" />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Start Date"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/maincolor"
+               android:drawableStart="@drawable/ic_baseline_date"/>
+           <TextView
+               android:id="@+id/start_experience"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Start"
+               android:textColor="@color/maincolor"
+               android:layout_marginLeft="10dp" />
+
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="End Date"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/maincolor"
+               android:drawableStart="@drawable/ic_baseline_date"/>
+           <TextView
+               android:id="@+id/end_experience"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="End"
+               android:textColor="@color/maincolor"
+               android:layout_marginLeft="10dp"/>
+
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Job Description"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:textColor="@color/maincolor"
+               android:drawableStart="@drawable/ic_job_description"/>
+           <TextView
+               android:id="@+id/description_experience"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Description"
+               android:textColor="@color/maincolor"
+               android:layout_marginLeft="10dp" />
+
+
+       </LinearLayout>
+   </androidx.cardview.widget.CardView>
+</layout>

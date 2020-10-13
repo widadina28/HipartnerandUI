@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".engineer.DetailEngineerFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        tools:context=".engineer.DetailEngineer">
 
-</FrameLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgengineer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_baseline_person_24" />
+        <TextView
+            android:id="@+id/tv_name_engineer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_baseline_star_24"/>
+
+        <TextView
+            android:id="@+id/tv_jobdetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Job"
+            android:layout_marginLeft="20dp"
+            android:drawableStart="@drawable/ic_job"/>
+
+        <TextView
+            android:id="@+id/tv_locdetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_baseline_location_on_24"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_statusdetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="Status"
+            android:drawableStart="@drawable/ic_job_search"/>
+
+        <TextView
+            android:id="@+id/tv_descdetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:drawableStart="@drawable/ic_job_description"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skill"
+            android:drawableStart="@drawable/ic_logical_thinking"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/btn_hire"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="HIRE"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/maincolor"/>
+
+
+
+    </LinearLayout>
+</layout>

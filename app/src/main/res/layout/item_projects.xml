@@ -1,23 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="390dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="7dp"
+        android:layout_margin="5dp"
+        android:foregroundGravity="center"
+        app:cardBackgroundColor="@color/maincolor">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imgrv"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_project"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
 
-    <TextView
-        android:id="@+id/tv_rv"
-        android:textSize="20dp"
-        android:fontFamily="monospace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_name_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/image_project"
+                android:drawableStart="@drawable/ic_projectname"
+                android:fontFamily="monospace"
+                android:text="Name Project"
+                android:textColor="#FFF"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_expired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name_project"
+                android:layout_marginTop="10dp"
+                android:drawableStart="@drawable/ic_expired"
+                android:layout_toRightOf="@id/image_project"
+                android:fontFamily="monospace"
+                android:textColor="#FFF"
+                android:text="Deadline"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/edit_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_edit_project"
+                android:layout_alignParentRight="true"/>
+
+            <ImageView
+                android:id="@+id/delete_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete"
+                android:layout_toLeftOf="@id/edit_project"/>
 
 
-</LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

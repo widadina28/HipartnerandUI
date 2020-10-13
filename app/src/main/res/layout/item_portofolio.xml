@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RecyclerView.PortofolioAdapter">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="25dp">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".RecyclerView.PortofolioAdapter"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name_portofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Portofolio"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginLeft="20dp"
+                android:drawableStart="@drawable/ic_file_name"
+                android:layout_marginTop="10dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iv_portofolio"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/link_repo_portofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Link Repo"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:drawableStart="@drawable/ic_link"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

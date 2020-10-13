@@ -1,60 +1,67 @@
 package com.ros.belajarbaseactivity.engineer
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ros.belajarbaseactivity.API.ApiClient
+import com.ros.belajarbaseactivity.API.AuthApiService
 import com.ros.belajarbaseactivity.R
+import com.ros.belajarbaseactivity.RecyclerView.ExperienceAdapter
+import com.ros.belajarbaseactivity.databinding.FragmentExperienceBinding
+import com.ros.belajarbaseactivity.sharedpref.Constant
+import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ExperienceFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ExperienceFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class ExperienceFragment : Fragment(){
+    private lateinit var binding: FragmentExperienceBinding
+    private lateinit var rv : RecyclerView
+    private lateinit var sharedpref: sharedprefutil
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_experience, container, false)
+        binding = FragmentExperienceBinding.inflate(inflater)
+        sharedpref = sharedprefutil(requireContext())
+        rv = binding.rvexperience
+        rv.adapter = ExperienceAdapter(arrayListOf())
+        rv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        callApi()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExperienceFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExperienceFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun callApi () {
+        val idEngineer = sharedpref.getString(Constant.PREF_ID_ENGINEER)
+        val service = ApiClient.getApiClient(requireContext())?.create(AuthApiService::class.java)
+        service?.getExperienceByID(idEngineer)?.enqueue(object : retrofit2.Callback<ExperienceResponse>{
+            override fun onFailure(call: Call<ExperienceResponse>, t: Throwable) {
+                Log.e("Experience Fragment", t.message ?: "error")
             }
+
+            override fun onResponse(
+                call: Call<ExperienceResponse>,
+                response: Response<ExperienceResponse>
+            ) {
+                Log.d("ExperienceFragment", "${response.body()}")
+                Log.d("ideng", "$idEngineer")
+                val list = response.body()?.data?.map {
+                    ExperienceModel(it.idExperience.orEmpty(), it.position.orEmpty(), it.companyName.orEmpty(),
+                    it.description.orEmpty(), it.start.orEmpty(), it.end.orEmpty()
+                    )}?: listOf()
+                Log.d("List", "$list")
+                (binding.rvexperience.adapter as ExperienceAdapter).addList(list)
+            }
+
+        })
     }
+
 }

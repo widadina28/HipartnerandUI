@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context="com.ros.belajarbaseactivity.bottomnav.ProjectFragment">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -17,8 +17,41 @@
             android:elevation="4dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recyclv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbarnew"/>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="#CFC3C3"
+            android:background="@drawable/round_button"
+            android:layout_marginBottom="70dp"
+            android:layout_marginLeft="180dp"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/add"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@drawable/round_button"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:text="+"-->
+<!--            android:enabled="true"-->
+<!--            android:textColor="#FFFF"-->
+<!--            android:layout_below="@id/toolbarnew"-->
+<!--            android:layout_margin="20dp"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/cobabtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="coba"-->
+<!--            android:layout_marginTop="300dp"/>-->
+
     </RelativeLayout>
 </layout>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profilecompany.EditCompany">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgprofile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingLeft="10dp"
+                app:civ_border_color="@color/maincolor"
+                android:layout_gravity="center"
+                app:civ_border_overlay="true" />
+
+            <Button
+                android:id="@+id/editimg_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:drawableLeft="@drawable/ic_baseline_edit_24"
+                android:text="Edit"
+                android:textSize="10dp"
+                android:backgroundTint="#fff"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Comapny Name"/>
+            
+            <EditText
+                android:id="@+id/et_company_name"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Insert Company Name"
+                android:background="@color/maincolor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Comapny Field"/>
+
+            <EditText
+                android:id="@+id/et_company_field"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Inser Company Field"
+                android:background="@color/maincolor"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:text="City"/>
+
+                <Spinner
+                    android:id="@+id/spinner_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp" ></Spinner>
+            </LinearLayout>
+
+
+
+<!--            <EditText-->
+<!--                android:id="@+id/et_company_location"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:padding="10dp"-->
+<!--                android:hint="Insert City"-->
+<!--                android:background="@color/maincolor"/>-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Description"/>
+
+            <EditText
+                android:id="@+id/et_company_description"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Insert Description"
+                android:background="@color/maincolor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Instagram"/>
+
+            <EditText
+                android:id="@+id/et_company_instagram"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Instagram Account"
+                android:background="@color/maincolor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Linkedin"/>
+
+            <EditText
+                android:id="@+id/et_company_linkedin"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Linkedin Account"
+                android:background="@color/maincolor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:text="Telephone Number"/>
+
+            <EditText
+                android:id="@+id/et_company_phone"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:hint="Insert Telephone Number"
+                android:background="@color/maincolor"/>
+
+            <Button
+                android:id="@+id/btn_submit_edit_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Submit"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/maincolor"
+                android:textColor="#FF4E4848"
+                android:background="@drawable/new_button"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</layout>

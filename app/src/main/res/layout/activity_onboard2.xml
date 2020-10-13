@@ -12,7 +12,7 @@
             android:id="@+id/btn_login1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Next"
             android:textColor="#FFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

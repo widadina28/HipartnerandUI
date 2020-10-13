@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@color/maincolor">
+        <androidx.cardview.widget.CardView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="7dp"
+            android:layout_gravity="center"
+            android:elevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageeng"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+
+                <TextView
+                    android:id="@+id/textViewname"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Name"
+                    android:drawableStart="@drawable/ic_baseline_person_24"
+                    android:layout_toRightOf="@id/imageeng"/>
+
+                <TextView
+                    android:id="@+id/textViewjob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_toRightOf="@id/textViewname"
+                    android:drawableStart="@drawable/ic_job"
+                    android:text="Job" />
+
+                <TextView
+                    android:id="@+id/textViewloc"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24"
+                    android:text="Location"
+                    android:layout_marginTop="45dp"
+                    android:layout_toRightOf="@id/imageeng"/>
+
+                <TextView
+                    android:id="@+id/textViewskill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Skill"
+                    android:drawableStart="@drawable/ic_logical_thinking"
+                    android:layout_toRightOf="@id/textViewloc"
+                    android:layout_marginTop="45dp"/>
+
+                <TextView
+                    android:id="@+id/textViewrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_star_24"
+                    android:text="Rate"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toRightOf="@id/imageeng"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
