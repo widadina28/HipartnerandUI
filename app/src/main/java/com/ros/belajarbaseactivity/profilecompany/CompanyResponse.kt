@@ -2,7 +2,7 @@ package com.ros.belajarbaseactivity.profilecompany
 
 import com.google.gson.annotations.SerializedName
 
-data class CompanyResponse (val success: String?, val message: String, val data: DataResult?) {
+data class CompanyResponse(val success: String?, val message: String, val data: DataResult?) {
     data class DataResult(
         @SerializedName("description_company")
         val descriptionCompany: String,

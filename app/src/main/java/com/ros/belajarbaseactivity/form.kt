@@ -27,14 +27,14 @@ class form : BaseActivity() {
             val achivEt = binding.etAchivement.text.toString()
             val expEt = binding.etExp.text.toString()
 
-            val intent = Intent (this, ProfilScreen::class.java)
-            intent.putExtra("NAMEform","$nameEt")
-            intent.putExtra("DOBform","$dobEt")
-            intent.putExtra("IDform","$idEt")
-            intent.putExtra("GPAform","$gpaEt")
-            intent.putExtra("EDUform","$eduEt")
-            intent.putExtra("ACHIVform","$achivEt")
-            intent.putExtra("EXPform","$expEt")
+            val intent = Intent(this, ProfilScreen::class.java)
+            intent.putExtra("NAMEform", "$nameEt")
+            intent.putExtra("DOBform", "$dobEt")
+            intent.putExtra("IDform", "$idEt")
+            intent.putExtra("GPAform", "$gpaEt")
+            intent.putExtra("EDUform", "$eduEt")
+            intent.putExtra("ACHIVform", "$achivEt")
+            intent.putExtra("EXPform", "$expEt")
             startActivity(intent)
         }
     }

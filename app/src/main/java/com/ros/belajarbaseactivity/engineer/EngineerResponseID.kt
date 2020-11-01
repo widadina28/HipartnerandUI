@@ -3,7 +3,7 @@ package com.ros.belajarbaseactivity.engineer
 
 import com.google.gson.annotations.SerializedName
 
-data class EngineerResponseID (val success: String?, val message: String? ,val data:DataResult) {
+data class EngineerResponseID(val success: String?, val message: String?, val data: DataResult) {
     data class DataResult(
         @SerializedName("cost")
         val cost: Int,

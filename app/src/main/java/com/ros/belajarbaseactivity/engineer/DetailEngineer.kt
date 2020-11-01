@@ -10,15 +10,15 @@ import com.ros.belajarbaseactivity.onboardvp.ViewPagerAdapter
 
 class DetailEngineer : BaseActivity() {
     private lateinit var binding: ActivityDetailEngineerBinding
-    private lateinit var vpadapter : VPDetailEngineerAdapter
+    private lateinit var vpadapter: VPDetailEngineerAdapter
 
     override fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_engineer)
     }
 
     override fun onCreateActivity() {
-    vpadapter = VPDetailEngineerAdapter(supportFragmentManager)
-        binding.viewpagerDetailEngineer.adapter=vpadapter
+        vpadapter = VPDetailEngineerAdapter(supportFragmentManager)
+        binding.viewpagerDetailEngineer.adapter = vpadapter
         binding.tabLayout.setupWithViewPager(binding.viewpagerDetailEngineer)
     }
 

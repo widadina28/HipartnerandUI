@@ -1,6 +1,6 @@
 package com.ros.belajarbaseactivity.Project
 
-data class ProjectModel (
+data class ProjectModel(
     val idProject: String,
-            val projectName: String
+    val projectName: String
 )

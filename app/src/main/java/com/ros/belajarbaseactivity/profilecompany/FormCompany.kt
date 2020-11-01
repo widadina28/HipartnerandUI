@@ -11,6 +11,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.ros.belajarbaseactivity.API.ApiClient
 import com.ros.belajarbaseactivity.API.AuthApiService
 import com.ros.belajarbaseactivity.BaseActivity
@@ -31,9 +33,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FormCompany : BaseActivity() {
-    private lateinit var binding : ActivityFormCompanyBinding
-    private lateinit var sharedpref : sharedprefutil
-    private var selectedLoc =""
+    private lateinit var binding: ActivityFormCompanyBinding
+    private lateinit var sharedpref: sharedprefutil
+    private lateinit var viewModel: FormCompanyViewModel
+    private var selectedLoc = ""
+
 
     override fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_form_company)
@@ -41,80 +45,75 @@ class FormCompany : BaseActivity() {
 
     override fun onCreateActivity() {
         sharedpref = sharedprefutil(applicationContext)
-        initSpinnerLoc()
+        val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
+        viewModel = ViewModelProvider(this).get(FormCompanyViewModel::class.java)
+        viewModel.setSharedPref(sharedpref)
+
+        if (service != null) {
+            viewModel.setFormCompanyService(service)
+        }
+
+        viewModel.initSpinnerLoc()
+
+        subscribeLiveData()
     }
 
-    private fun callAuthApi() {
-        val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-        val idAcc = sharedpref.getString(Constant.PREF_ID_ACC)
-
-    service?.companyRequest(createPartFromString(binding.etCompanyNameR.text.toString()), createPartFromString(binding.etCompanyFieldR.text.toString()),
-    createPartFromString("HRD"), createPartFromString(selectedLoc), createPartFromString(binding.etCompanyDescriptionR.text.toString()),
-    createPartFromString(binding.etCompanyInstagramR.text.toString()), createPartFromString(binding.etCompanyPhoneR.text.toString()),
-    createPartFromString(binding.etCompanyLinkedinR.text.toString()),createPartFromString("$idAcc"))?.enqueue(
-        object : Callback<CompanyResponse>{
-            override fun onFailure(call: Call<CompanyResponse>, t: Throwable) {
-                Toast.makeText(this@FormCompany, "$t", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(
-                call: Call<CompanyResponse>,
-                response: Response<CompanyResponse>
-            ) {
+    private fun subscribeLiveData() {
+        viewModel.isFormCompLiveData.observe(this, Observer {
+            if (it) {
                 Toast.makeText(this@FormCompany, "Profile Data Sent!", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this@FormCompany, BottomNavigationActivity::class.java))
                 finish()
+            } else {
+                Toast.makeText(this@FormCompany, "Failed!", Toast.LENGTH_SHORT).show()
             }
-        }
-    )
-    }
 
 
-    private fun initSpinnerLoc(){
-        var spinner= binding.spinnerLocR as Spinner
-        val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-        service?.getLocation()?.enqueue(object : Callback<LocationResponse> {
-            override fun onFailure(call: Call<LocationResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
-                Log.d("API data", "Data tidak masuk!")
-            }
-            override fun onResponse(
-                call: Call<LocationResponse>,
-                response: Response<LocationResponse>
-            ) {
-                Log.d("API data", "data masuk: ${response.body()}")
-                val listLoc = response.body()?.data?.map {
-                    LocationModel(it.idLoc.orEmpty(), it.nameLoc.orEmpty()
-                    )} ?: listOf()
-                spinner.adapter = ArrayAdapter<String>(this@FormCompany, R.layout.support_simple_spinner_dropdown_item, listLoc.map {
+        })
+        viewModel.isLocationSpinner.observe(this, Observer {
+            var spinner = binding.spinnerLocR
+            spinner.adapter = ArrayAdapter<String>(
+                this@FormCompany,
+                R.layout.support_simple_spinner_dropdown_item,
+                it.map {
                     it.nameLoc
                 })
-                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long
-                    ) {
-                        selectedLoc = listLoc[position].idLoc.toString()
-                    }
-
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedLoc = it[position].idLoc.toString()
+                }
+
             }
-
-            })
-        }
-
+        })
+    }
 
 
     override fun initListener() {
         binding.btnsubmitR.setOnClickListener {
-            callAuthApi()
+            val idAcc = sharedpref.getString(Constant.PREF_ID_ACC)
+            viewModel.callAuthApi(
+                createPartFromString(binding.etCompanyNameR.text.toString()),
+                createPartFromString(binding.etCompanyFieldR.text.toString()),
+                createPartFromString("HRD"),
+                createPartFromString(selectedLoc),
+                createPartFromString(binding.etCompanyDescriptionR.text.toString()),
+                createPartFromString(binding.etCompanyInstagramR.text.toString()),
+                createPartFromString(binding.etCompanyPhoneR.text.toString()),
+                createPartFromString(binding.etCompanyLinkedinR.text.toString()),
+                createPartFromString("$idAcc")
+            )
         }
 
     }
+
     @NonNull
     private fun createPartFromString(json: String): RequestBody {
         val mediaType = "multipart/form-data".toMediaType()

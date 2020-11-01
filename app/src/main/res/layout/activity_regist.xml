@@ -44,7 +44,8 @@
             android:layout_marginTop="20sp"
             android:layout_marginHorizontal="16dp"
             android:hint="Name"
-            android:background="#82B56F"
+            android:background="@drawable/new_edit_text"
+            android:backgroundTint="@color/maincolor"
             app:layout_constraintTop_toBottomOf="@id/tv_createacc"/>
 
         <EditText
@@ -58,7 +59,8 @@
             android:layout_marginTop="20sp"
             android:layout_marginHorizontal="16dp"
             android:hint="Email"
-            android:background="#82B56F"
+            android:background="@drawable/new_edit_text"
+            android:backgroundTint="@color/maincolor"
             app:layout_constraintTop_toBottomOf="@id/et_name"/>
 
         <EditText
@@ -72,7 +74,8 @@
             android:layout_marginTop="20sp"
             android:layout_marginHorizontal="16dp"
             android:hint="Password"
-            android:background="#82B56F"
+            android:background="@drawable/new_edit_text"
+            android:backgroundTint="@color/maincolor"
             app:layout_constraintTop_toBottomOf="@id/et_emailregist"/>
 
         <Button
@@ -82,7 +85,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_pwregist"
-            android:background="#82B56F"
+            android:backgroundTint="#82B56F"
+            android:background="@drawable/new_button"
             android:text="CREATE ACCOUNT"
             android:textColor="#FF4E4848"
             android:textSize="16sp"

@@ -11,12 +11,17 @@ import com.ros.belajarbaseactivity.engineer.PortofolioModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_portofolio.view.*
 
-class PortofolioAdapter (val dataportofolio: ArrayList<PortofolioModel>, var listener: OnAdapterListenerPorto):RecyclerView.Adapter<PortofolioAdapter.HolderPortofolio>(){
+class PortofolioAdapter(
+    val dataportofolio: ArrayList<PortofolioModel>,
+    var listener: OnAdapterListenerPorto
+) : RecyclerView.Adapter<PortofolioAdapter.HolderPortofolio>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PortofolioAdapter.HolderPortofolio {
-      return HolderPortofolio(LayoutInflater.from(parent.context).inflate(R.layout.item_portofolio, parent, false))
+        return HolderPortofolio(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_portofolio, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = dataportofolio.size
@@ -25,20 +30,21 @@ class PortofolioAdapter (val dataportofolio: ArrayList<PortofolioModel>, var lis
         val portofolio = dataportofolio[position]
         holder.view.link_repo_portofolio.text = portofolio.linkRepo
         holder.view.name_portofolio.text = portofolio.appName
-        Picasso.get().load("http://3.80.45.131:8080/uploads/" + portofolio.image).placeholder(R.drawable.ic_picture).into(holder.view.iv_portofolio)
+        Picasso.get().load("http://3.80.45.131:8080/uploads/" + portofolio.image)
+            .placeholder(R.drawable.ic_picture).into(holder.view.iv_portofolio)
         holder.view.link_repo_portofolio.setOnClickListener {
             listener.onClick(portofolio)
         }
 
     }
 
-    class HolderPortofolio(val view: View): RecyclerView.ViewHolder(view)
+    class HolderPortofolio(val view: View) : RecyclerView.ViewHolder(view)
 
     interface OnAdapterListenerPorto {
-        fun onClick (portofolio: PortofolioModel)
+        fun onClick(portofolio: PortofolioModel)
     }
 
-    fun addList (newList: List<PortofolioModel>) {
+    fun addList(newList: List<PortofolioModel>) {
         dataportofolio.clear()
         dataportofolio.addAll(newList)
         notifyDataSetChanged()

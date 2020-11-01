@@ -14,5 +14,5 @@ class ViewPagerAdapter(fragment: FragmentManager) :
         return fragment[position]
     }
 
-    override fun getCount(): Int =fragment.size
+    override fun getCount(): Int = fragment.size
 }

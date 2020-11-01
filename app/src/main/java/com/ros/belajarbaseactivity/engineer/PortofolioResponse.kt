@@ -2,7 +2,11 @@ package com.ros.belajarbaseactivity.engineer
 
 import com.google.gson.annotations.SerializedName
 
-data class PortofolioResponse (val success: String?, val message: String? ,val data:List<DataResult>) {
+data class PortofolioResponse(
+    val success: String?,
+    val message: String?,
+    val data: List<DataResult>
+) {
     data class DataResult(
         @SerializedName("aplication_name")
         val aplicationName: String,

@@ -12,7 +12,7 @@ interface RegisterContract {
     interface Presenter {
         fun bindToView(view: View)
         fun unbind()
-        fun callApi(name: String, email:String, password:String)
+        fun callApi(name: String, email: String, password: String)
         fun setSharedPref(sharedpref: sharedprefutil)
     }
 }

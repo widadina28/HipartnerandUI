@@ -25,7 +25,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Insert Company Name"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +42,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Insert Company Field"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +77,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Insert Description"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,7 +94,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Instagram Account"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +111,8 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Linkedin Account"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,13 +128,15 @@
                 android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:hint="Insert Telephone Number"
-                android:background="@color/maincolor"/>
+                android:background="@drawable/new_edit_text"
+                android:backgroundTint="@color/maincolor"/>
 
             <Button
                 android:id="@+id/btnsubmitR"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="Submit"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/maincolor"

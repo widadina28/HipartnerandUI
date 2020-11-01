@@ -8,7 +8,7 @@ import com.ros.belajarbaseactivity.databinding.ActivityGithubWebVBinding
 
 
 class GithubWebVActivity : BaseActivity() {
-    private lateinit var binding:ActivityGithubWebVBinding
+    private lateinit var binding: ActivityGithubWebVBinding
 
     override fun initBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_github_web_v)

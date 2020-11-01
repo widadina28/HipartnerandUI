@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 class ApiClient {
     companion object {
-        private  const val URL = "http://3.80.45.131:8080/"
+        private const val URL = "http://3.80.45.131:8080/"
         private var retrofit: Retrofit? = null
 
         private fun provideHttpLoggingInceptor() = run {
@@ -19,7 +19,7 @@ class ApiClient {
             }
         }
 
-        fun getApiClient(mcontext : Context) : Retrofit? {
+        fun getApiClient(mcontext: Context): Retrofit? {
             if (retrofit == null) {
                 val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor(HeaderInterceptor(mcontext))

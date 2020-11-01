@@ -14,7 +14,7 @@ import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
 import kotlinx.coroutines.*
 
 class Register : BaseActivity(), RegisterContract.View {
-    lateinit var binding : ActivityRegistBinding
+    lateinit var binding: ActivityRegistBinding
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var presenter: RegisterContract.Presenter
     lateinit var sharedpref: sharedprefutil
@@ -24,18 +24,20 @@ class Register : BaseActivity(), RegisterContract.View {
     }
 
     override fun onCreateActivity() {
-        sharedpref= sharedprefutil(applicationContext)
+        sharedpref = sharedprefutil(applicationContext)
         coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
         val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-        presenter= RegisterPresenter(coroutineScope, service)
+        presenter = RegisterPresenter(coroutineScope, service)
         presenter!!.setSharedPref(sharedpref)
 
     }
 
     override fun initListener() {
         binding.btnCreate.setOnClickListener {
-            presenter?.callApi(binding.etName.text.toString(), binding.etEmailregist.text.toString(),
-            binding.etPwregist.text.toString())
+            presenter?.callApi(
+                binding.etName.text.toString(), binding.etEmailregist.text.toString(),
+                binding.etPwregist.text.toString()
+            )
         }
     }
 
@@ -56,8 +58,7 @@ class Register : BaseActivity(), RegisterContract.View {
 
     override fun registerSucces() {
         val a = sharedpref.putBoolean(Constant.PREF_REGISTER, true)
-        Log.d("sharedpref", "$a")
-        Toast.makeText(this@Register,"Success!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@Register, "Success!", Toast.LENGTH_SHORT).show()
         baseStartActivity<Login>(context = this@Register)
         finish()
     }

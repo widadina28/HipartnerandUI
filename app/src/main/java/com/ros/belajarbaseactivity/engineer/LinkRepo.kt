@@ -21,7 +21,6 @@ class LinkRepo : BaseActivity() {
     override fun onCreateActivity() {
         sharedpref = sharedprefutil(applicationContext)
         val link = sharedpref.getString(Constant.PREF_LINK_REPO)
-        Log.d("Link Repo", "$link")
         binding.webviewPortofolio.loadUrl("$link")
     }
 

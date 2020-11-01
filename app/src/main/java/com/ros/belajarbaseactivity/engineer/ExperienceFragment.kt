@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ros.belajarbaseactivity.API.ApiClient
@@ -19,10 +21,11 @@ import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
 
-class ExperienceFragment : Fragment(){
+class ExperienceFragment : Fragment() {
     private lateinit var binding: FragmentExperienceBinding
-    private lateinit var rv : RecyclerView
+    private lateinit var rv: RecyclerView
     private lateinit var sharedpref: sharedprefutil
+    private lateinit var viewModel: ExperienceViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,38 +33,28 @@ class ExperienceFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentExperienceBinding.inflate(inflater)
+        val service = ApiClient.getApiClient(requireContext())?.create(AuthApiService::class.java)
         sharedpref = sharedprefutil(requireContext())
+        viewModel = ViewModelProvider(this).get(ExperienceViewModel::class.java)
+        viewModel.setSharedPreference(sharedpref)
+        if (service != null) {
+            viewModel.setHireService(service)
+        }
+
         rv = binding.rvexperience
         rv.adapter = ExperienceAdapter(arrayListOf())
         rv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        callApi()
+        viewModel.callApi()
+        subscribeLiveData()
 
         return binding.root
     }
 
-    private fun callApi () {
-        val idEngineer = sharedpref.getString(Constant.PREF_ID_ENGINEER)
-        val service = ApiClient.getApiClient(requireContext())?.create(AuthApiService::class.java)
-        service?.getExperienceByID(idEngineer)?.enqueue(object : retrofit2.Callback<ExperienceResponse>{
-            override fun onFailure(call: Call<ExperienceResponse>, t: Throwable) {
-                Log.e("Experience Fragment", t.message ?: "error")
-            }
-
-            override fun onResponse(
-                call: Call<ExperienceResponse>,
-                response: Response<ExperienceResponse>
-            ) {
-                Log.d("ExperienceFragment", "${response.body()}")
-                Log.d("ideng", "$idEngineer")
-                val list = response.body()?.data?.map {
-                    ExperienceModel(it.idExperience.orEmpty(), it.position.orEmpty(), it.companyName.orEmpty(),
-                    it.description.orEmpty(), it.start.orEmpty(), it.end.orEmpty()
-                    )}?: listOf()
-                Log.d("List", "$list")
-                (binding.rvexperience.adapter as ExperienceAdapter).addList(list)
-            }
-
+    fun subscribeLiveData() {
+        viewModel.isResponseExperience.observe(viewLifecycleOwner, Observer {
+            (binding.rvexperience.adapter as ExperienceAdapter).addList(it)
         })
     }
+
 
 }

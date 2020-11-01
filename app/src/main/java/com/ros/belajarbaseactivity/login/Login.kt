@@ -19,8 +19,8 @@ import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
 
 class Login : BaseActivity() {
 
-    lateinit var binding: ActivityHomeBinding
-    lateinit var sharedpref: sharedprefutil
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var sharedpref: sharedprefutil
     private lateinit var viewModel: LoginViewModel
 
     override fun initBinding() {
@@ -57,25 +57,37 @@ class Login : BaseActivity() {
         }
     }
 
-    private fun subscribeLiveData(){
+    private fun subscribeLiveData() {
+        viewModel.isResponseLogin.observe(this, Observer {
+            if (it) {
+
+            } else {
+                Toast.makeText(this@Login, "FAILED", Toast.LENGTH_SHORT).show()
+            }
+        })
         viewModel.isLoginLiveData.observe(this, Observer {
             Log.d("android1", "$it")
             if (it) {
-            Toast.makeText(this@Login,"Success" , Toast.LENGTH_SHORT).show()
-            viewModel.isRegisterLiveData.observe(this, Observer {
-                if (it){
-                    startActivity(Intent(this@Login, FormCompany::class.java))
-                    finish()
-                }
-                else {
-                    startActivity(Intent(this@Login, BottomNavigationActivity::class.java))
-                    finish()
-                }
-            })
-            }
-            else {
-            Toast.makeText(this@Login, "FAILED", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Login, "Success", Toast.LENGTH_SHORT).show()
+                viewModel.isRegisterLiveData.observe(this, Observer {
+                    if (it) {
+                        startActivity(Intent(this@Login, FormCompany::class.java))
+                        finish()
+                    } else {
+                        startActivity(Intent(this@Login, BottomNavigationActivity::class.java))
+                        finish()
+                    }
+                })
+            } else {
+                Toast.makeText(this@Login, "You Don't Have Access", Toast.LENGTH_SHORT).show()
 
+            }
+        })
+        viewModel.isToastLoginLiveData.observe(this, Observer {
+            if (it) {
+
+            } else {
+                Toast.makeText(this@Login, "Fill The Blank!", Toast.LENGTH_SHORT).show()
             }
         })
 

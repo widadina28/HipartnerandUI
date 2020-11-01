@@ -2,7 +2,7 @@ package com.ros.belajarbaseactivity.Project
 
 import com.google.gson.annotations.SerializedName
 
-data class ProjectResponse (val success: String?, val message: String, val data: List<DataResult>?) {
+data class ProjectResponse(val success: String?, val message: String, val data: List<DataResult>?) {
     data class DataResult(
         @SerializedName("count")
         val count: Int,

@@ -9,16 +9,17 @@ import androidx.room.RoomDatabase
     entities = [DataClassProject::class],
     version = 1
 )
-abstract class ProjectDB : RoomDatabase(){
+abstract class ProjectDB : RoomDatabase() {
 
-    abstract fun dao() : Dao
+    abstract fun dao(): Dao
 
     companion object {
 
-        @Volatile private var instance : ProjectDB? = null
+        @Volatile
+        private var instance: ProjectDB? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: buildDatabase(context).also {
                 instance = it
             }

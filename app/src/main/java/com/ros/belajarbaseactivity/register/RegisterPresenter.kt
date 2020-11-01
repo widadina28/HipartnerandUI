@@ -11,8 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RegisterPresenter (private val coroutineScope: CoroutineScope,
-                         private val service: AuthApiService?) : RegisterContract.Presenter  {
+class RegisterPresenter(
+    private val coroutineScope: CoroutineScope,
+    private val service: AuthApiService?
+) : RegisterContract.Presenter {
 
     private var view: RegisterContract.View? = null
     private lateinit var sharedpref: sharedprefutil
@@ -26,21 +28,16 @@ class RegisterPresenter (private val coroutineScope: CoroutineScope,
     }
 
 
-    override fun callApi(name: String, email:String, password:String) {
+    override fun callApi(name: String, email: String, password: String) {
         coroutineScope.launch {
-            Log.d("android1", "callApi : ${Thread.currentThread().name}")
-            val response = withContext(Dispatchers.IO){
-                Log.d("android1", "callApi : ${Thread.currentThread().name}")
+            val response = withContext(Dispatchers.IO) {
                 try {
-                    service?.registerRequest(name, email, password,"company")
-                }
-                catch (e: Throwable){
-                    Log.d("register eror", "failed bcause ${e.printStackTrace()}")
+                    service?.registerRequest(name, email, password, "company")
+                } catch (e: Throwable) {
                 }
             }
 
-            if(response is RegisterResponse) {
-                Log.d("response", "${response.data}")
+            if (response is RegisterResponse) {
                 view?.registerSucces()
             } else {
                 view?.registerfailed()
@@ -49,7 +46,7 @@ class RegisterPresenter (private val coroutineScope: CoroutineScope,
     }
 
     override fun setSharedPref(sharedpref: sharedprefutil) {
-        this.sharedpref=sharedpref
+        this.sharedpref = sharedpref
     }
 
 }

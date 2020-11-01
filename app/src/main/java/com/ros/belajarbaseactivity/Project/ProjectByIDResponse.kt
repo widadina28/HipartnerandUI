@@ -3,7 +3,7 @@ package com.ros.belajarbaseactivity.Project
 import com.google.gson.annotations.SerializedName
 
 data class ProjectByIDResponse(val success: String?, val message: String, val data: DataResult?) {
-    data class DataResult (
+    data class DataResult(
         @SerializedName("createAt")
         val createAt: String,
         @SerializedName("deadline")

@@ -1,7 +1,8 @@
 package com.ros.belajarbaseactivity.Project
 
-data class ProjectAllModel (
+data class ProjectAllModel(
     val idProject: String,
     val image: String,
     val projectName: String,
-    val deadline: String)
+    val deadline: String
+)

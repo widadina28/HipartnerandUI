@@ -13,7 +13,7 @@ import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val timesplash : Long =4000
+    private val timesplash: Long = 4000
     lateinit var sharedpref: sharedprefutil
 
     override fun initBinding() {
@@ -27,11 +27,11 @@ class MainActivity : BaseActivity() {
             if (token != null) {
                 startActivity(Intent(this, BottomNavigationActivity::class.java))
                 finish()
-            }
-            else {
+            } else {
                 baseStartActivity<viewpageronboard>(context = this)
             }
         }, timesplash)
     }
+
     override fun initListener() {}
 }

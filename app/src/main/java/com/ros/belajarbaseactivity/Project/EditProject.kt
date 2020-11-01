@@ -9,15 +9,20 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ros.belajarbaseactivity.API.ApiClient
 import com.ros.belajarbaseactivity.API.AuthApiService
 import com.ros.belajarbaseactivity.BaseActivity
+import com.ros.belajarbaseactivity.Hire.EngineerInProjectModel
 import com.ros.belajarbaseactivity.R
+import com.ros.belajarbaseactivity.RecyclerView.EngineerInProjectAdapter
 import com.ros.belajarbaseactivity.databinding.ActivityEditProjectBinding
 import com.ros.belajarbaseactivity.profilecompany.EditCompany
 import com.ros.belajarbaseactivity.profilecompany.EditCompany.Companion.PERMISSION_CODE
@@ -39,7 +44,12 @@ class EditProject : BaseActivity() {
 
     private lateinit var binding: ActivityEditProjectBinding
     private lateinit var sharedpref: sharedprefutil
+    private lateinit var viewModel: EditProjectViewModel
+    private lateinit var rv: RecyclerView
+
+
     private var img: MultipartBody.Part? = null
+
     companion object {
         private val IMAGE_PICK_CODE = 1000
         val PERMISSION_CODE = 1001
@@ -50,104 +60,105 @@ class EditProject : BaseActivity() {
     }
 
     override fun onCreateActivity() {
+        val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
+        viewModel = ViewModelProvider(this).get(EditProjectViewModel::class.java)
         sharedpref = sharedprefutil(applicationContext)
+
+        if (service != null) {
+            viewModel.setEditProjectService(service)
+        }
+
+        viewModel.setSharedPref(sharedpref)
+
+        rv = binding.recyclerEngineerProject
+        rv.adapter = EngineerInProjectAdapter(arrayListOf())
+        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         setupView()
         setupListener()
+        subscribeLiveData()
+
     }
-    private fun setupView(){
+
+
+    private fun setupView() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         when (intentType()) {
             ConstantProject.TYPE_CREATE -> {
                 supportActionBar!!.title = "Create New Project"
                 binding.btnsubmit.visibility = View.VISIBLE
                 binding.btnupdate.visibility = View.GONE
+                binding.engineerInProject.visibility = View.GONE
             }
             ConstantProject.TYPE_READ -> {
                 supportActionBar!!.title = " Read Only "
                 binding.btnsubmit.visibility = View.GONE
                 binding.btnupdate.visibility = View.GONE
                 binding.editimgBtnProject.visibility = View.GONE
-                getProject()
+                viewModel.getProject()
+                viewModel.getHireProject()
             }
             ConstantProject.TYPE_UPDATE -> {
                 supportActionBar!!.title = "Edit"
                 binding.btnsubmit.visibility = View.GONE
                 binding.btnupdate.visibility = View.VISIBLE
-                getProject()
+                viewModel.getProject()
             }
         }
     }
 
-    private fun  setupListener() {
+    private fun setupListener() {
 
         btnsubmit.setOnClickListener {
             val idComp = sharedpref.getString(Constant.PREF_ID_COMPANY)
-            val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-            service?.postProject(createPartFromString(binding.etNameProject.text.toString()),
-            createPartFromString(binding.etDescriptionPoject.text.toString()),
-            createPartFromString(binding.etTimer.text.toString()),
-            createPartFromString("$idComp"), createPartFromString(binding.etPriceEditProject.text.toString()),
-            img)?.enqueue(object : Callback<PostProjectResponse>{
-                override fun onFailure(call: Call<PostProjectResponse>, t: Throwable) {
-                    Toast.makeText(this@EditProject, "$t", Toast.LENGTH_SHORT).show()
-                }
-                override fun onResponse(
-                    call: Call<PostProjectResponse>,
-                    response: Response<PostProjectResponse>
-                ) {
-                    Toast.makeText(this@EditProject,"Submit Success!", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            })
-
-
+            viewModel.postProject(
+                createPartFromString(binding.etNameProject.text.toString()),
+                createPartFromString(binding.etDescriptionPoject.text.toString()),
+                createPartFromString(binding.etTimer.text.toString()),
+                createPartFromString("$idComp"),
+                createPartFromString(binding.etPriceEditProject.text.toString()),
+                img
+            )
         }
         btnupdate.setOnClickListener {
             val idComp = sharedpref.getString(Constant.PREF_ID_COMPANY)
-            val idProject = sharedpref.getString(Constant.PREF_ID_PROJECT)
-            val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-            Log.d("idProjectEdit", "id:$idProject")
-            val a = createPartFromString(binding.etNameProject.text.toString())
-            val b = createPartFromString(binding.etDescriptionPoject.text.toString())
-            val c = createPartFromString(binding.etTimer.text.toString())
-            val d = img
-            val e = createPartFromString("$idComp")
-            val f =createPartFromString(binding.etPriceEditProject.text.toString())
-
-            service?.putProject(idProject, a, b, c, d, e, f)?.enqueue(object :Callback<Void>{
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    Toast.makeText(this@EditProject, "$t", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    Log.d("putProjecr", "${response.body()}")
-                    Toast.makeText(this@EditProject,"Update Success!", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            })
+            viewModel.putProject(
+                createPartFromString(binding.etNameProject.text.toString()),
+                createPartFromString(binding.etDescriptionPoject.text.toString()),
+                createPartFromString(binding.etTimer.text.toString()),
+                img,
+                createPartFromString("$idComp"),
+                createPartFromString(binding.etPriceEditProject.text.toString())
+            )
         }
     }
 
-    private fun getProject(){
-        val idProject = sharedpref.getString(Constant.PREF_ID_PROJECT)?.toInt()
-        val service = ApiClient.getApiClient(this)?.create(AuthApiService::class.java)
-
-        service?.getProjectByID(idProject)?.enqueue(object : Callback<ProjectByIDResponse>{
-            override fun onFailure(call: Call<ProjectByIDResponse>, t: Throwable) {
-                Log.d("getProject", "eror = $t")
+    fun subscribeLiveData() {
+        viewModel.responseGetProjectLiveData.observe(this, Observer {
+            binding.etDescriptionPoject.setText(it.data?.description)
+            binding.etNameProject.setText(it.data?.projectName)
+            binding.etPriceEditProject.setText(it.data?.price)
+            Picasso.get().load("http://3.80.45.131:8080/uploads/" + it.data?.image).placeholder(
+                R.drawable.ic_image_editing
+            ).into(binding.cvImgEditProject)
+            binding.etTimer.setText(it.data?.deadline)
+        })
+        viewModel.responsePostProjectLiveData.observe(this, Observer {
+            Toast.makeText(this@EditProject, "Submit Success!", Toast.LENGTH_SHORT).show()
+            finish()
+        })
+        viewModel.responsePutProjectLiveData.observe(this, Observer {
+            if (it) {
+                Toast.makeText(this@EditProject, "Update Success!", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this@EditProject, "Update Failed!", Toast.LENGTH_SHORT).show()
             }
-
-            override fun onResponse(
-                call: Call<ProjectByIDResponse>,
-                response: Response<ProjectByIDResponse>
-            ) {
-                binding.etDescriptionPoject.setText(response.body()?.data?.description)
-                binding.etNameProject.setText(response.body()?.data?.projectName)
-                binding.etPriceEditProject.setText(response.body()?.data?.price)
-//                response.body()?.data?.price?.let { binding.etPriceEditProject.setText(it) }
-                Picasso.get().load("http://3.80.45.131:8080/uploads/" + response.body()?.data?.image).placeholder(R.drawable.ic_image_editing).into(binding.cvImgEditProject)
-                binding.etTimer.setText(response.body()?.data?.deadline)
-            }
+        })
+        viewModel.responseGetHireProject.observe(this, Observer {
+            val List = it.data.map {
+                EngineerInProjectModel(it.nameEngineer.orEmpty(), it.status.orEmpty())
+            } ?: listOf()
+            (binding.recyclerEngineerProject.adapter as EngineerInProjectAdapter).addList(List)
         })
     }
 
@@ -167,16 +178,16 @@ class EditProject : BaseActivity() {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                     val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
                     requestPermissions(permissions, EditProject.PERMISSION_CODE)
-                }
-                else {
+                } else {
                     pickImgGallery()
                 }
             } else {
                 pickImgGallery()
             }
         }
-        }
-    private fun pickImgGallery(){
+    }
+
+    private fun pickImgGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, EditProject.IMAGE_PICK_CODE)
@@ -189,10 +200,9 @@ class EditProject : BaseActivity() {
     ) {
         when (requestCode) {
             EditProject.PERMISSION_CODE -> {
-                if (grantResults.size > 0 && grantResults [0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     pickImgGallery()
-                }
-                else {
+                } else {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -210,7 +220,8 @@ class EditProject : BaseActivity() {
             val inputStream = contentResolver.openInputStream(data?.data!!)
             val reqFile: RequestBody? = inputStream?.readBytes()?.toRequestBody(mediaTypeImg)
             img = reqFile?.let { it1 ->
-                MultipartBody.Part.createFormData("image", file.name,
+                MultipartBody.Part.createFormData(
+                    "image", file.name,
                     it1
                 )
             }

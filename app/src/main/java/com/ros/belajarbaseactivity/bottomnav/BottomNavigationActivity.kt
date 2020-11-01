@@ -11,12 +11,14 @@ import com.ros.belajarbaseactivity.sharedpref.Constant
 import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
 
 class BottomNavigationActivity : BaseActivity() {
-    private lateinit var binding:ActivityBottomNavigationBinding
-    private lateinit var sharedpref : sharedprefutil
+    private lateinit var binding: ActivityBottomNavigationBinding
+    private lateinit var sharedpref: sharedprefutil
 
     override fun initBinding() {
-        binding = DataBindingUtil.setContentView(this
-        ,R.layout.activity_bottom_navigation)
+        binding = DataBindingUtil.setContentView(
+            this
+            , R.layout.activity_bottom_navigation
+        )
     }
 
     override fun onCreateActivity() {

@@ -10,10 +10,10 @@ import androidx.room.Update
 interface Dao {
 
     @Insert
-    suspend fun add (dataclassproject: DataClassProject)
+    suspend fun add(dataclassproject: DataClassProject)
 
     @Update
-    suspend fun update (dataclassproject: DataClassProject)
+    suspend fun update(dataclassproject: DataClassProject)
 
     @Delete
     suspend fun delete(dataclassproject: DataClassProject)
@@ -23,5 +23,5 @@ interface Dao {
 
 
     @Query("SELECT * FROM dataclassproject WHERE id=:projectId")
-    suspend fun getprojectId(projectId : Int) : List<DataClassProject>
+    suspend fun getprojectId(projectId: Int): List<DataClassProject>
 }

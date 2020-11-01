@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.util.*
 
-data class HireResponse (val success:String?, val message: String, val data:DataResult) {
+data class HireResponse(val success: String?, val message: String, val data: DataResult) {
     data class DataResult(
         @SerializedName("confirm_date")
         val confirmDate: String,

@@ -13,28 +13,17 @@ import com.ros.belajarbaseactivity.sharedpref.sharedprefutil
 
 class viewpageronboard : BaseActivity() {
     private lateinit var binding: ActivityViewpageronboardBinding
-    private lateinit var vpadapter : ViewPagerAdapter
-//    lateinit var sharedpref: sharedprefutil
+    private lateinit var vpadapter: ViewPagerAdapter
 
     override fun initBinding() {
-        binding=DataBindingUtil.setContentView(this, R.layout.activity_viewpageronboard)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_viewpageronboard)
     }
 
     override fun onCreateActivity() {
         vpadapter = ViewPagerAdapter(supportFragmentManager)
-        binding.viewpager.adapter=vpadapter
-//        sharedpref = sharedprefutil(applicationContext)
-//        startActivity(Intent(this, Login::class.java))
-//        finish()
-    }
+        binding.viewpager.adapter = vpadapter
 
-//    override fun onStart() {
-//        super.onStart()
-//        if (sharedpref.getBoolean(Constant.PREF_IS_LOGIN)) {
-//            startActivity(Intent(this, Login::class.java))
-//            finish()
-//        }
-//    }
+    }
 
     override fun initListener() {}
 }
